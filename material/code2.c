@@ -107,12 +107,12 @@ int main(int argc, char *argv[]) {
       a[0] = 1;
       cpu_time_used = backtrack(a,1,c,n);
       if (found == 1){   // found the minimum with c+1
-	printf("%d ",c);
+	   printf("%d ",c);
    	printf("%lf \n", cpu_time_used);	
 	break;
       }
       else if (found == -1) {   // amount of time exceeded
-  	printf("-1 ");
+  	   printf("-1 ");
    	printf("%lf \n", cpu_time_used);	
 	break;
       }
