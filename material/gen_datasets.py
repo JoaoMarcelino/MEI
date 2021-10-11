@@ -12,8 +12,7 @@ def main():
     for i in range(number_of_datasets):
         os.system('python3 gen.py {exams_number} {probability} {seed} data_sets/gen_{exams_number}_{probability}_{seed}.txt'
         .format(exams_number= exams_number,probability= probability, seed= i)) 
-        pass
 
 
 if __name__ == "__main__":
-    main()
+    main
