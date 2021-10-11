@@ -1,0 +1,32 @@
+number of exams     ------> |-----------|
+                            |           |
+overlap probability ------> |  gen.py   |
+                            |           |
+random seed #2      ------> |-----------|   ------> |-----------|
+                                                    |           | 
+                        random seed #1      ------> |  code1.c  |   ------> time to compute
+                                                    |           |
+                        maximum time        ------> |-----------|
+
+
+
+test #1:
+    variar tudo
+    avaliar tempo que demora para establecer upper bound
+
+test #2:
+    fixar tudo
+    variar number of exams
+    avaliar tempo que demora
+
+test #3:
+    fixar tudo
+    variar overlap probability
+    avaliar tempo que demora
+
+test #4:
+    repetir test#1 e test#2 com 3-5 seeds diferents para perceber se seeds importam
+
+
+test #5:
+    repetir test#1 e test#2 com ambos code1.c e code2.c
