@@ -1,6 +1,8 @@
 import os
 import sys
-def runCFile(codeFile,seed1,seed2,nExams,overlapProb,maxTime):
+import numpy as np
+
+def runCFile(codeFile,seed1,seed2,nExams,overlapProb,maxTime,targetFile):
     generatorFileName="data_sets/gen_{}_{}_{}.txt".format(nExams,overlapProb,seed2)
     
     
@@ -9,10 +11,12 @@ def runCFile(codeFile,seed1,seed2,nExams,overlapProb,maxTime):
     
     if codeFile==1:   
         resultsFileName = "results/code1_{}_{}_gen_{}_{}_{}.txt".format(seed1,maxTime,nExams,overlapProb,seed2)     
-        os.system("./code1 {} {} {} >> {}".format(seed1,maxTime,generatorFileName,resultsFileName))
+        os.system("( echo -n \"{code} {seed1} {seed2} {nExams} {overlapProb} {maxTime} \" ; ./code1 {seed1} {maxTime} {generatorFileName} ) >> {targetFile}"
+        .format(code=codeFile,seed1=seed1,seed2=seed2,nExams=nExams,overlapProb=overlapProb,maxTime=maxTime,generatorFileName=generatorFileName,targetFile=targetFile))
     elif codeFile==2:
         resultsFileName = "results/code2_{}_{}_gen_{}_{}_{}.txt".format(seed1,maxTime,nExams,overlapProb,seed2)     
-        os.system("./code2 {} {} {} >> {}".format(seed1,maxTime,generatorFileName,resultsFileName))
+        os.system("( echo -n \"{code} {seed1} {seed2} {nExams} {overlapProb} {maxTime} \" ; ./code2 {seed1} {maxTime} {generatorFileName} ) >> {targetFile}"
+        .format(code=codeFile,seed1=seed1,seed2=seed2,nExams=nExams,overlapProb=overlapProb,maxTime=maxTime,generatorFileName=generatorFileName,targetFile=targetFile))
     else:
         raise Exception
 
@@ -37,4 +41,16 @@ def main():
 
 
 if __name__ == "__main__":
-    runCFile(2,20,30,100,0.5,10)
+    seed1=20
+    seed2=20
+    maxTime=100
+    nExamsRange=np.arange(10,30,1)
+    overlapProbRange=np.arange(0,0.5,0.01)
+
+    for nExams in nExamsRange:
+        for overlapProb in overlapProbRange:
+            
+            runCFile(1,seed1,seed2,nExams,round(overlapProb,2),maxTime,"results/ex1.txt")
+            runCFile(2,seed1,seed2,nExams,round(overlapProb,2),maxTime,"results/ex1.txt")
+
+            print("[{}  {}]".format(nExams,round(overlapProb,2)))
