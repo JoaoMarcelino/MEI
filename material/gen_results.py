@@ -1,8 +1,10 @@
 import os
 import sys
 import numpy as np
+from random import randint
 
 def runCFile(codeFile,seed1,seed2,nExams,overlapProb,maxTime,targetFile):
+
     generatorFileName="data_sets/gen_{}_{}_{}.txt".format(nExams,overlapProb,seed2)
     
     
@@ -39,15 +41,20 @@ def main():
 
 
 if __name__ == "__main__":
-    seed1=30
-    seed2=30
-    maxTime=120
-    nExams=15
-    overlapProbRange=np.arange(0,1,0.005)
+    seed1 = [30, 60, 90, 120, 150]
+    seed2 = [30, 60, 90, 120, 150]
+    seedMax = 3000000
+    maxTime = 120
+    nExams = 15
+    overlapProbRange = np.arange(0.9679,1,0.0001)
+    file = "./results/test5.txt"
+ 
+    #os.system("echo codigo seed1 seed2 nExams overlapProb maxTime minSlots time >> {file}".format(file = file))
 
     for overlapProb in overlapProbRange:
-            
-        runCFile(1,seed1,seed2,nExams,round(overlapProb,4),maxTime,"./results/test3.txt")
-        runCFile(2,seed1,seed2,nExams,round(overlapProb,4),maxTime,"./results/test3.txt")
 
-        print("[{}  {}]".format(nExams,round(overlapProb,4)))
+        for s1 in range(5):
+            runCFile(1,randint(1,seedMax),randint(1,seedMax),nExams,round(overlapProb,4),maxTime, file)
+            runCFile(2,randint(1,seedMax),randint(1,seedMax),nExams,round(overlapProb,4),maxTime, file)
+
+            print("[{}  {}]".format(nExams,round(overlapProb,4)))
