@@ -1,3 +1,4 @@
+codigo seed1 seed2 nExams overlapProb maxTime minSlots time
 1 30 30 15 0.0 120 1 0.000112 
 2 30 30 15 0.0 120 2 0.000014 
 1 30 30 15 0.005 120 1 0.000112 
