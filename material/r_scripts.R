@@ -161,11 +161,11 @@ test7 <- function(){
 }
 
 test8 <- function(){
-  table=read.table("./results/test5.txt",header = TRUE)
+  table=read.table("./results/test5_1.txt",header = TRUE)
   table$codigo=as.character(table$codigo)
   table1 = subset(table, codigo == 1 )
   table2 = subset(table, codigo == 2 )
-  maxTimes=c(120)
+  maxTimes=c(0.5)
   
   table5=setNames(data.frame(matrix(ncol = 5, nrow = 0)), c("overlapProb", "nExams", "prob","codigo","maxTime"))
   
