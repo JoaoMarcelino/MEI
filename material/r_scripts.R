@@ -1,5 +1,6 @@
 library(gplots)
 library(ggplot2)
+
 tableOfMeans= function(table,numberOfSampesRequired){
   tableOfMeans=setNames(data.frame(matrix(ncol = 3, nrow = 0)), c("overlapProb", "nExams", "time"))
   
@@ -24,6 +25,20 @@ tableOfMeans= function(table,numberOfSampesRequired){
   }
   return(tableOfMeans)
 }
+
+#setwd Marcelino
+#setwd('../Desktop/Universidade/MEI/material/')
+
+
+#table=read.table("./results/test5.txt",header = TRUE)
+#table1 = subset(table, codigo == 1 , select=c(overlapProb,time))
+#table2 = subset(table, codigo == 2 , select=c(overlapProb,time))
+
+#plot(table1$overlapProb,y=table1$time,xlab ="Number of Exams",ylab = "Time",main = "Time to compute answer by code2")
+
+
+
+#plotmeans(table1$time~table1$overlapProb, data = table1,minbar=0, maxbar=120, col="blue", barcol="white",  frame = FALSE,mean.labels = FALSE, connect = FALSE, n.label=FALSE)
 
 
 tableOfAnswerProbability= function(table,numberOfSampesRequired,timeLimit){
@@ -107,9 +122,10 @@ test3 <- function(){
 
 test5 <- function(){
   par(mfrow=c(2,1))
-  table=read.table("./results/test5.txt",header = TRUE)
-  table1 = subset(table, codigo == 1 , select=c(overlapProb,time))
-  table2 = subset(table, codigo == 2 , select=c(overlapProb,time))
+  table=read.table("./results/test5_15.txt",header = TRUE)
+  table1 = subset(table, codigo == 1 , select=c(overlapProb, time, minSlots))
+  table2 = subset(table, codigo == 2 , select=c(overlapProb, time, minSlots))
+  
   
   maxTime <- table$maxTime[1]
   
@@ -186,14 +202,14 @@ test8 <- function(){
 }
 
 test9 <- function(){
-  table=read.table("./results/test7.txt",header = TRUE)
-  table = subset(table,   minSlots!=-1)
+  table=read.table("./results/test5_15.txt",header = TRUE)
+  table = subset(table,)
   table$codigo=as.character(table$codigo)
   table1 = subset(table, codigo == 1 )
   table2 = subset(table, codigo == 2 )
   
-  p=ggplot(table, aes(x=time, color=codigo)) +
-    geom_histogram(fill="white")
+  p=ggplot(table, aes(x=time, color=codigo, fill=codigo )) +
+    geom_histogram(alpha=0.7, position="dodge")
   print(p)
   
 }
