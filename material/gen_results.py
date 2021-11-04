@@ -42,16 +42,15 @@ def main():
 
 if __name__ == "__main__":
     seedMax = 300000
-    maxTime = 1
+    maxTime = 10
     nExams=13
-    overlapProbRange = np.arange(0.85,0.95,0.001)
-    file = "./results/test5_1.txt"
+    overlapProb=0.88
+    file = "./results/test7_2.txt"
  
     os.system("echo \"codigo seed1 seed2 nExams overlapProb maxTime minSlots time\" >> {file}".format(file = file))
 
-    for overlapProb in overlapProbRange:
-        for s1 in range(50):
-            runCFile(1,randint(1,seedMax),randint(1,seedMax),nExams,round(overlapProb,4),maxTime, file)
-            runCFile(2,randint(1,seedMax),randint(1,seedMax),nExams,round(overlapProb,4),maxTime, file)
+    for seed in range(1000):
+        runCFile(1,seed+1,30,nExams,round(overlapProb,4),maxTime, file)
+        runCFile(2,seed+1,30,nExams,round(overlapProb,4),maxTime, file)
 
-            print("[{}  {}]".format(nExams,round(overlapProb,4)))
+        print("[{}  {}]".format(nExams,round(overlapProb,4)))

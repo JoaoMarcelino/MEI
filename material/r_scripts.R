@@ -185,8 +185,21 @@ test8 <- function(){
   
 }
 
+test9 <- function(){
+  table=read.table("./results/test7.txt",header = TRUE)
+  table = subset(table,   minSlots!=-1)
+  table$codigo=as.character(table$codigo)
+  table1 = subset(table, codigo == 1 )
+  table2 = subset(table, codigo == 2 )
+  
+  p=ggplot(table, aes(x=time, color=codigo)) +
+    geom_histogram(fill="white")
+  print(p)
+  
+}
 
-test8()
+
+test9()
 
 
 
