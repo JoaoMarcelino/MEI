@@ -169,16 +169,68 @@ test2_3 <- function(){
 }
 
 test5 <- function(){
-  par(mfrow=c(2,1))
-  table=read.table("./results/test5_15.txt",header = TRUE)
-  table1 = subset(table, codigo == 1 , select=c(overlapProb, time, minSlots))
-  table2 = subset(table, codigo == 2 , select=c(overlapProb, time, minSlots))
+  blue='#00BFC4'
+  red='#F8766D'
+  table=read.table("./results/test5_10.txt",header = TRUE)
+  colnames(table)[which(names(table) == "codigo")] <- "code"
+  table$code=as.character(table$code)
+  table = subset(table,   minSlots!=-1)
   
+  table1=tableOfMeans(subset(table,code==1),5)
+  table2=tableOfMeans(subset(table,code==2),5)
+  table1$code="1"
+  table2$code="2"
+  table3=rbind(table1,table2)
   
-  maxTime <- table$maxTime[1]
+  # p=ggplot(table3,aes(x=overlapProb,y=time,color=code,shape=code))+
+  #   geom_point(size=1)+  
+  #   labs(x="Overlap Probability",y="Time (seconds)")+
+  #   scale_color_manual(values=c(blue,red))+
+  #   geom_smooth(method=lm, se=FALSE, fullrange=TRUE,size=1)
+  # print(p)
+  # lr.out=lm(table1$time~table1$overlapProb)
+  # plot(lr.out)
+  # lr.out=lm(table2$time~table2$overlapProb)
+  # plot(lr.out)
+  print(summary(lm(table1$time~table1$overlapProb)))
+  print(summary(lm(sqrt(table1$time)~table1$overlapProb)))
+  print(summary(lm(log(table1$time)~table1$overlapProb)))
+}
+
+test5_1 <- function(){
+  blue='#00BFC4'
+  red='#F8766D'
+  green='#71d980'
+  table1=read.table("./results/test5_10.txt",header = TRUE)
+  colnames(table1)[which(names(table1) == "codigo")] <- "code"
+  table1$code=as.character(table1$code)
+  table1 = subset(table1,   minSlots!=-1)
+  table1=tableOfMeans(subset(table1,code==1),5)
   
-  plotmeans(table1$time~table1$overlapProb, xlab ="Overlap Probability",ylab = "Time", data = table1,minbar=0, maxbar= maxTime, col="blue", barcol="white",  frame = FALSE,mean.labels = FALSE, connect = FALSE, n.label=FALSE)
-  plotmeans(table2$time~table2$overlapProb, xlab ="Overlap Probability",ylab = "Time", data = table1,minbar=0, maxbar= maxTime, col="red", barcol="white",  frame = FALSE,mean.labels = FALSE, connect = FALSE, n.label=FALSE)
+  table2=read.table("./results/test5_15.txt",header = TRUE)
+  colnames(table2)[which(names(table2) == "codigo")] <- "code"
+  table2$code=as.character(table2$code)
+  table2 = subset(table2,   minSlots!=-1)
+  table2=tableOfMeans(subset(table2,code==1),5)
+  
+  table3=read.table("./results/test5_17.txt",header = TRUE)
+  colnames(table3)[which(names(table3) == "codigo")] <- "code"
+  table3$code=as.character(table3$code)
+  table3 = subset(table3,   minSlots!=-1)
+  table3=tableOfMeans(subset(table3,code==1),5)
+  
+  table4=rbind(table1,table2,table3)
+  table4=subset(table4,overlapProb>=0.77)
+  table4=subset(table4,overlapProb<=0.95)
+  table4$nExams=as.character(table4$nExams)
+  
+  p=ggplot(table4,aes(x=overlapProb,y=time,color=nExams))+
+      geom_point(size=1)+
+      geom_smooth(se = F,size=1)+
+      labs(x="Overlap Probability",y="Time (seconds)")+
+      scale_color_manual(values=c(blue,red,green))
+  print(p)
+ 
 }
 
 test6 <- function(){
@@ -325,7 +377,7 @@ test12 <- function(){
 }
 
 
-test12()
+test5_1()
 
 
 
