@@ -30,3 +30,26 @@ test #4:
 
 test #5:
     repetir test#1 e test#2 com ambos code1.c e code2.c
+
+
+PARTE 2
+
+Number of Exams alto e OP baixo:
+(x, )
+Codigo2 melhor que Codigo1
+
+
+Number of Exams alto e OP alto:
+(,)
+Codigo1 melhor que Codigo2
+
+Overlap Probability alto e NE baixo:
+(
+,)
+Codigo1 melhor Codigo2
+
+Overlap Probability baixo e NE baixo:
+(0.5, 15)
+Codigo1 igual a Codigo2
+
+
