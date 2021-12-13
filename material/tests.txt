@@ -53,3 +53,8 @@ Overlap Probability baixo e NE baixo:
 Codigo1 igual a Codigo2
 
 
+PARTE 3
+
+40 variacoes de seeds para as hipoteses na segunda parte
+
+
