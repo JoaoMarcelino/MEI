@@ -42,16 +42,16 @@ def main():
 
 if __name__ == "__main__":
     seedMax = 3000000
-    maxTime = 60
-    nExams = 75
-    overlapProb=0.10
-    file = "./results_2/test1.txt"
+    maxTime = 180
+    nExams = 65
+    overlapProb=0.05
+    file = "./results_2/test1_1.txt"
  
     os.system("echo \"codigo seed1 seed2 nExams overlapProb maxTime minSlots time\" >> {file}".format(file = file))
 
-    for s1 in range(50):
+    for i in range(50):
 
-        runCFile(1, s1  ,10,nExams ,round(overlapProb,4) ,maxTime, file)
-        runCFile(2, s1*2,10,nExams ,round(overlapProb,4) ,maxTime, file)
+        runCFile(1, i  , i + 100,nExams ,round(overlapProb,4) ,maxTime, file)
+        runCFile(2, i + 200, i + 300,nExams ,round(overlapProb,4) ,maxTime, file)
 
         print("[{}  {}]".format(nExams,round(overlapProb,4)))
