@@ -1,5 +1,6 @@
 import os
 import sys
+from typing import IO
 import numpy as np
 from random import randint
 
@@ -43,15 +44,19 @@ def main():
 if __name__ == "__main__":
     seedMax = 3000000
     maxTime = 180
-    nExams = 65
-    overlapProb=0.05
-    file = "./results_2/test1_1.txt"
+    nExams = [5, 10, 15, 20]
+    overlapProb=[0.10, 0.30, 0.5, 0.7, 0.9]
+
+    file = "./results_2/test3.txt"
  
     os.system("echo \"codigo seed1 seed2 nExams overlapProb maxTime minSlots time\" >> {file}".format(file = file))
+    i = 0
+    for overlap in overlapProb:
+        for exams in nExams:
+            for j in range(25):
 
-    for i in range(50):
+                runCFile(1, i  , i + 600,exams ,round(overlap,4) ,maxTime, file)
+                runCFile(2, i + 1200, i + 1800,exams ,round(overlap,4) ,maxTime, file)
 
-        runCFile(1, i  , i + 100,nExams ,round(overlapProb,4) ,maxTime, file)
-        runCFile(2, i + 200, i + 300,nExams ,round(overlapProb,4) ,maxTime, file)
-
-        print("[{}  {}]".format(nExams,round(overlapProb,4)))
+                i += 1
+                print("[{}  {}]".format(exams,round(overlap,4)))
