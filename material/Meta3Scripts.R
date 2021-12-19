@@ -18,13 +18,16 @@ library(ggpubr)
 # print(test)
 
 #Teste 2 -----------------------------------------------------------------------
-table=read.table("./results_2/test2.txt",header = TRUE)
+table=read.table("./results_2/test2_1.txt",header = TRUE)
 table = subset(table, minSlots!=-1 )
-codigo1=subset(table, codigo==1 )
-codigo2=subset(table, codigo==2 )
+code1=subset(table, codigo==1 )[1:100,]
+code2=subset(table, codigo==2 )[1:100,]
 
 
-p=t.test(codigo1$time,codigo2$time,alternative="less",paired = FALSE)
+p=t.test(code1$time,code2$time,alternative="less",conf.level = 0.9,paired = FALSE)
+show(p)
+
+p=t.test(code1$time,code2$time,alternative="greater",conf.level = 0.9,paired = FALSE)
 show(p)
 
 #Teste 3 -----------------------------------------------------------------------
