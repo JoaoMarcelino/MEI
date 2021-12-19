@@ -2,6 +2,7 @@ library(gplots)
 library(ggplot2)
 library(ggpubr)
 
+
 #setwd Marcelino
 #setwd('../Desktop/Universidade/MEI/material/')
 
@@ -31,32 +32,36 @@ p=t.test(code1$time,code2$time,alternative="greater",conf.level = 0.9,paired = F
 show(p)
 
 #Teste 3 -----------------------------------------------------------------------
-# table=read.table("./results_2/test3.txt",header = TRUE)
-# table1 = subset(table, overlapProb == 0.10, select=c(nExams,time, codigo))
-# table2 = subset(table, codigo == 1 & nExams == 10, select=c(overlapProb,time, codigo))
-# 
-# 
-# table1$codigo <- factor(table1$codigo, 
-#                        levels = c( 1, 2),
-#                        labels = c("C1", "C2"))
-# 
-# 
-# 
-# p = ggboxplot(table1, x = "nExams", y = "time", color = "codigo",
-#           palette = c("#00AFBB", "#E7B800"))
-# 
-# p =ggline(table1, x = "nExams", y = "time", color = "codigo",
-#        add = c("mean_se", "dotplot"),
-#        palette = c("#00AFBB", "#E7B800"))
-# 
-# 
-# #if time depends on codigo and nExams.
-# res.aov2 <- aov(time ~ codigo + nExams, data = table1)
-# summary(res.aov2)
-# 
-# 
-# # Two-way ANOVA with interaction effect
-# # These two calls are equivalent
-# res.aov3 <- aov(time ~ codigo * nExams, data = table1)
-# 
-# print(p)
+table=read.table("./results_2/test3.txt",header = TRUE)
+table1 = subset(table, select=c(nExams,time, codigo, overlapProb))
+
+ 
+ 
+table1$codigo <- factor(table1$codigo, 
+                       levels = c( 1, 2),
+                       labels = c("C1", "C2"))
+ 
+
+p = ggboxplot(table1, x = "nExams", y = "time", pallete = "overlapProb", facet.by = "codigo")
+
+
+
+model  <- lm(time ~ codigo*nExams*overlapProb, data = table1)
+# Create a QQ plot of residuals
+q = ggqqplot(residuals(model))
+
+
+
+r = ggqqplot(table1, "time", ggtheme = theme_bw()) +
+  facet_grid(codigo + nExams ~ overlapProb, labeller = "label_both")
+
+
+
+res.aov <- table1 %>% anova_test(time ~ codigo*nExams*overlapProb)
+show(res.aov)
+
+
+# https://www.datanovia.com/en/lessons/anova-in-r/#computation-2
+# Post-hoc tests
+
+show(r)
